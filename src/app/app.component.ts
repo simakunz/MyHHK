@@ -1,12 +1,14 @@
 //list of all modulars of Angular: https://www.npm.js.com/~angular
 
 import { Component } from '@angular/core';
+import { HHKTableComponent } from './tableview/hhk-table.component';
 
-//{} alles in diesen Klammern ist ein Objekt
+// {} alles in diesen Klammern ist ein Objekt
 
-@Component({        //here component is the decorator
-  selector: 'hhk-root',   //directive name used in HTML
-  templateUrl: './app.component.html',  //View Layout
+// hhk-root ==> directive name used in HTML
+@Component({
+  selector: 'hhk-root',
+  templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
