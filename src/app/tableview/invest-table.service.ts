@@ -1,7 +1,7 @@
 import { IInvest } from './invest';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from '@rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 
 
 /* retrieve data for the Invest-Table */
@@ -22,11 +22,5 @@ export class InvestTableService {
     // für später mal:
     // this._ccFinalUrl = this._ccBaseUrl + 'price?fsym=' + cName + '&tsyms=' + destCurrency;
     // return this._http.get(this._ccFinalUrl);
-
-    /*
-    return [
-
-    ];
-    */
   }
 }

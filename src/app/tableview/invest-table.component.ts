@@ -37,6 +37,7 @@ export class InvestTableComponent implements OnInit {
     fxRate: number = 1; // muss noch ausgelagert werden
     filteredInvests: IInvest[];
     invests: IInvest[];
+    errorMessage: string;
 
 
     /* der nachfolgende Code ist die Kurzform von:
@@ -55,7 +56,11 @@ export class InvestTableComponent implements OnInit {
     /* an initialisations which are to be performed, will be done here */
     ngOnInit(): void {
       console.log('now we are in OnInit of InvestTableComponent');
-      this.invests = this._investTableService.getInvests();
+      
+      this._investTableService.getInvests('XRP', 'EUR').subscribe(
+        invests => this.invests = invests,
+        error => this.errorMessage = <any>error);
+        
       this.filteredInvests = this.invests;
     }
 
