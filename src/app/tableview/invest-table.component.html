@@ -5,49 +5,54 @@
     <div class='panel-body'>
 
         <div>
-        <div class='table-responsive'>
-            <table class='table'
-                     *ngIf='invests && invests.length'>
-                <thead>
-                    <tr> <!-- headline itself -->
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Preis beim Kauf (in {{currency}})</th>
-                        <th>Anzahl beim Kauf</th>
-                        <th>Aktueller Kurs (in {{currency}})</th>
-                        <th>Aktueller Wert (in {{currency}})</th>
-                    </tr>
-                    <tr> <!-- filters for headline -->
-                      <th> <!-- ID -->
-                        <div class='col-md-4'>
-                            <input type='text' />
-                            <!-- [(ngModel)]='categoryFilter' /> -->
-                          </div>
-                      </th>
-                      <th> <!-- Name -->
-                        <div class='col-md-4'>
-                            <input type='text' [(ngModel)]='investFilter' />
-                          </div>
-                      </th>
-                      <!-- Rest muss noch definiert werden -->
-                    </tr>
-                </thead>
-                <tbody>
-                  <tr  *ngFor='let invest of filteredInvests'>
-                    <td>{{ invest.investId}}</td>
-                    <td>{{ invest.investName}}</td>
-                    <!-- Rest muss noch definiert werden
+            <div class='table-responsive'>
+                <table class='table' *ngIf='invests && invests.length'>
+                    <thead>
+                        <tr>
+                            <!-- headline itself -->
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Preis beim Kauf (in {{currency}})</th>
+                            <th>Anzahl beim Kauf</th>
+                            <th>Aktueller Kurs (in {{currency}})</th>
+                            <th>Aktueller Wert (in {{currency}})</th>
+                        </tr>
+                        <tr>
+                            <!-- filters for headline -->
+                            <th>
+                                <!-- ID -->
+                                <div class='col-md-4'>
+                                    <input type='text' />
+                                    <!-- [(ngModel)]='categoryFilter' /> -->
+                                </div>
+                            </th>
+                            <th>
+                                <!-- Name -->
+                                <div class='col-md-4'>
+                                    <input type='text' [(ngModel)]='investFilter' />
+                                </div>
+                            </th>
+                            <!-- Rest muss noch definiert werden -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let invest of filteredInvests'>
+                            <td>{{ invest.investId}}</td>
+                            <td>
+                                <a [routerLink]="['/invest-table/', invest.investId]">{{invest.investName}}</a>
+                            </td>
+                            <!-- Rest muss noch definiert werden
                     <td>{{ expense.expenseCategory}}</td>
                     <td>{{ expense.expensePlan | number:'1.2-2' | convertFX: fxRate }}</td>
                     <td>{{ expense.expenseActuals | number:'1.2-2' | convertFX: fxRate }}</td>
                     <td>{{ expense.expenseComment}}</td>
                     -->
-                  </tr>
-                </tbody>
-            </table>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
-<div *ngIf='errorMessage' class='alert alert-danger'>
-    Error: {{ errorMessage }}
-</div>
+    <div *ngIf='errorMessage' class='alert alert-danger'>
+        Error: {{ errorMessage }}
+    </div>

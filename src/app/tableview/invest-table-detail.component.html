@@ -1,3 +1,17 @@
-<p>
-  invest-table-detail.component.ts works!
-</p>
+<div class='panel panel-primary' *ngIf='invest'>
+
+    <div class='panel-heading'>
+        {{title + ': ' + invest.investId}}     </div>
+
+    <div class='panel-body'>
+        <div class='row'>
+            <div class='cold-md-3'>Name: </div>
+            <div class='cold-md-6'>{{invest.investName}}</div>
+        </div>
+    </div>
+    <div class='panel-footer'>
+        <a class='btn btn-default' (click)='onBack()' style='width:80px '>
+            <i class='glyphicon glyphic-chevron-left '></i> Back
+        </a>
+    </div>
+</div>

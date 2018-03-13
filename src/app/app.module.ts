@@ -10,6 +10,7 @@ import { InvestTableComponent } from './tableview/invest-table.component';
 import { InvestTableDetailComponent } from './tableview/invest-table-detail.component';
 import { WelcomeComponent } from './home/welcome.component';
 import { RouterModule } from '@angular/router';
+import { InvestGuardService } from './tableview/invest-guard.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,9 @@ import { RouterModule } from '@angular/router';
     RouterModule.forRoot([
       {path: 'hhk-table', component: HHKTableComponent},
       {path: 'invest-table', component: InvestTableComponent},
-      {path: 'invest-table/:id', component: InvestTableDetailComponent},
+      {path: 'invest-table/:id', 
+          canActivate:[ InvestGuardService ],
+          component: InvestTableDetailComponent},
       {path: 'welcome', component: WelcomeComponent},
       {path: '', redirectTo: 'welcome', pathMatch: 'full'},
       // next route ('**' is usually redirected to PageNotFound
@@ -39,7 +42,7 @@ import { RouterModule } from '@angular/router';
     // in case of # routes, the code would look like:
     // RouterModule.forRoot([], {useHas: true})
   ],
-  providers: [],
+  providers: [InvestGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
