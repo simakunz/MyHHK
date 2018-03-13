@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ConvertFX } from './shared/convertFX.pipe';
 import { InvestTableComponent } from './tableview/invest-table.component';
+import { InvestTableDetailComponent } from './tableview/invest-table-detail.component';
 import { WelcomeComponent } from './home/welcome.component';
 import { RouterModule } from '@angular/router';
 
@@ -17,6 +18,7 @@ import { RouterModule } from '@angular/router';
     ConvertFX,
     StarComponent,
     InvestTableComponent,
+    InvestTableDetailComponent,
     WelcomeComponent
   ],
   imports: [
@@ -27,7 +29,7 @@ import { RouterModule } from '@angular/router';
     RouterModule.forRoot([
       {path: 'hhk-table', component: HHKTableComponent},
       {path: 'invest-table', component: InvestTableComponent},
-      // {path: 'invest-table/:id', component: InvestTableDetailComponent},
+      {path: 'invest-table/:id', component: InvestTableDetailComponent},
       {path: 'welcome', component: WelcomeComponent},
       {path: '', redirectTo: 'welcome', pathMatch: 'full'},
       // next route ('**' is usually redirected to PageNotFound
