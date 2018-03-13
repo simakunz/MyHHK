@@ -24,37 +24,41 @@ export class HHKTableComponent implements OnInit {
     imageMargin: number = 2;
     imageUrl: string = '../../assets/images/share_price_graph.jpg';
     showImage: boolean = false;
+    years: number[];
+    selectedYear: number;
+
     // private _hhkTableService; <= wird nur in der Langform des Constructors gebraucht
 
     /* ******************************************************
     * to filter properly, the get and set methods are used  *
     ******************************************************* */
-    _commentFilter: string;
+    _filters: string[] = ['', '', ''];
     get commentFilter(): string {
-      return this._commentFilter;
+      return this._filters[0];
     }
     set commentFilter(value: string){
-      this._commentFilter = value;
-      this.filteredExpenses = this.commentFilter ? this.performFilter(this.commentFilter) : this.expenses;
+      this._filters[0] = value;
+      this.filteredExpenses = this.commentFilter ? this.performFilter(this._filters) : this.expenses;
     }
 
-    _plansFilter: string;
     get plansFilter(): string {
-        return this._plansFilter;
+        return this._filters[2];
       }
     set plansFilter(value: string){
-        this._plansFilter = value;
-        this.filteredExpenses = this.plansFilter ? this.performFilter(this.plansFilter) : this.expenses;
+        this._filters[2] = value;
+        this.filteredExpenses = this.plansFilter ? this.performFilter(this._filters) : this.expenses;
     }
 
-    _actualsFilter: string;
     get actualsFilter(): string {
-        return this._actualsFilter;
+        return this._filters[1];
       }
     set actualsFilter(value: string){
-        this._actualsFilter = value;
-        this.filteredExpenses = this.actualsFilter ? this.performFilter(this.actualsFilter) : this.expenses;
+        this._filters[1] = value;
+        this.filteredExpenses = this.actualsFilter ? this.performFilter(this._filters) : this.expenses;
     }
+
+
+
 
     currency: string = 'EUR';
     fxRate: number = 1;
@@ -72,25 +76,62 @@ export class HHKTableComponent implements OnInit {
    constructor(private _hhkTableService: HHKTableService) {
 
     this.commentFilter = '';
+    this.actualsFilter = '';
+    this.plansFilter = '';
+
    }
 
-  /* method to deal with 5-Star-Rating Output messages */
-  onRatingClicked(message: string): void {
-    this.pageTitle = this.pageTitle + ': '  + message;
-  }
+    /* method to deal with 5-Star-Rating Output messages */
+    onRatingClicked(message: string): void {
+      this.pageTitle = this.pageTitle + ': '  + message;
+    }
+
+
+    onInput(message: string): void {
+      console.log('es wurde folgendes Jahr gewählt: ' + message);
+    }
+
+    // tslint:disable-next-line:no-trailing-whitespace
+
     /* an initialisations which are to be performed, will be done here */
     ngOnInit(): void {
       console.log('now we are in OnInit');
       this.expenses = this._hhkTableService.getExpenses();
       this.filteredExpenses = this.expenses;
+      this.years = [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021];
     }
 
-
-    performFilter(filterBy: string): IExpense[] {
-      filterBy = filterBy.toLocaleLowerCase();
+    /* ****************************
+     * expects an array of filters
+     * [0] = comment Filter
+     * [1] = actuals Filter
+     * [2] = plans Filter
+     * ************************** */
+    performFilter(filterBy: string[]): IExpense[] {
+      // filterBy = filterBy.toLocaleLowerCase();
       // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+
       return this.expenses.filter((expense: IExpense) =>
-        expense.expenseComment.toLocaleLowerCase().indexOf(filterBy) !== -1);
+        expense.expenseComment.toLocaleLowerCase().indexOf(filterBy[0]) !== -1 &&
+        expense.expenseActuals.toString().toLocaleLowerCase().indexOf(filterBy[1]) !== -1 &&
+        expense.expensePlan.toString().toLocaleLowerCase().indexOf(filterBy[2]) !== -1
+        );
+/*
+      if (filterType = 'comments') {
+        return this.expenses.filter((expense: IExpense) =>
+          expense.expenseComment.toLocaleLowerCase().indexOf(filterBy) !== -1);
+      }
+
+      if (filterType = 'actuals') {
+        return this.expenses.filter((expense: IExpense) =>
+          expense.expenseActuals.toString().toLocaleLowerCase().indexOf(filterBy) !== -1);
+      }
+
+      if (filterType = 'plans') {
+        return this.expenses.filter((expense: IExpense) =>
+          expense.expensePlan.toString().toLocaleLowerCase().indexOf(filterBy) !== -1);
+      }
+*/
     }
 
 
@@ -98,62 +139,3 @@ export class HHKTableComponent implements OnInit {
       this.showImage = !this.showImage;
     }
 }
-
-/*
-
-import { Component, OnInit } from '@angular/core';
-
-import { IProduct } from './product';
-import { ProductService } from './product.service';
-
-@Component({
-    templateUrl: './product-list.component.html',
-    styleUrls: ['./product-list.component.css']
-})
-export class ProductListComponent implements OnInit {
-    pageTitle: string = 'Product List';
-    imageWidth: number = 50;
-    imageMargin: number = 2;
-    showImage: boolean = false;
-    errorMessage: string;
-
-    _listFilter: string;
-    get listFilter(): string {
-        return this._listFilter;
-    }
-    set listFilter(value: string) {
-        this._listFilter = value;
-        this.filteredProducts = this.listFilter ? this.performFilter(this.listFilter) : this.products;
-    }
-
-    filteredProducts: IProduct[];
-    products: IProduct[] = [];
-
-    constructor(private _productService: ProductService) {
-
-    }
-
-    onRatingClicked(message: string): void {
-        this.pageTitle = 'Product List: ' + message;
-    }
-
-    performFilter(filterBy: string): IProduct[] {
-        filterBy = filterBy.toLocaleLowerCase();
-        return this.products.filter((product: IProduct) =>
-              product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1);
-    }
-
-    toggleImage(): void {
-        this.showImage = !this.showImage;
-    }
-
-    ngOnInit(): void {
-        this._productService.getProducts()
-                .subscribe(products => {
-                    this.products = products;
-                    this.filteredProducts = this.products;
-                },
-                    error => this.errorMessage = <any>error);
-    }
-}
-*/

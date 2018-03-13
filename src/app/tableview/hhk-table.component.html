@@ -44,7 +44,19 @@
                         </tr>
                         <tr>
                             <!-- filters for headline -->
-                            <th>DropDownFilterYear</th>
+                            <th>
+                              <div class='col-md-4'>
+                                  <select [ngModel]="selectedYear" (input)="onInput($event)">
+                                    Erklärung: https://embed.plnkr.co/plunk/5TUiaX
+                                      <option *ngFor="let y of years"
+                                              [value]="y"
+                                              [selected]="y == selectedYear"
+                                             >
+                                            {{y}}
+                                      </option>
+                                   </select>
+                              </div>
+                            </th>
                             <th>DropdownFilterMonth</th>
                             <th>DropDownFilterCategory
                                 <th>
@@ -77,34 +89,11 @@
                             <td>{{ expense.expenseComment}}</td>
                         </tr>
                     </tbody>
-                                        
-                <tbody>
-                    <tr *ngFor='let product of filteredProducts'>
-                        <td>
-                            <img *ngIf='showImage'
-                                [src]='product.imageUrl'
-                                [title]='product.productName'
-                                [style.width.px]='imageWidth'
-                                [style.margin.px]='imageMargin'>
-                        </td>
-                        <td><a [routerLink]="['/products', product.productId]">
-                                {{ product.productName }}
-                            </a>
-						            </td>
-                        <td>{{ product.productCode | lowercase | convertToSpaces: '-' }}</td>
-                        <td>{{ product.releaseDate }}</td>
-                        <td>{{ product.price | currency:'USD':true:'1.2-2'}}</td>
-                        <td>
-                            <pm-star [rating]='product.starRating'
-                                (ratingClicked)='onRatingClicked($event)'>
-							              </pm-star>
-                        </td>
-                    </tr>
-                </tbody> -->
                 </table>
             </div>
         </div>
     </div>
+
     <div *ngIf='errorMessage' class='alert alert-danger'>
         Error: {{ errorMessage }}
     </div>
