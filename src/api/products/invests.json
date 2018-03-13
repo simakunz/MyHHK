@@ -1,13 +1,14 @@
-[     {
-        investId: 1,
-        investName: 'Siemens Shares'
-      },
-      {
-        investId: 2,
-        investName: 'Ripple'
-      },
-      {
-        investId: 3,
-        investName: 'Tron'
-      }
+[
+  {
+    "investId": 1,
+    "investName": "Siemens Shares"
+  },
+  {
+    "investId": 2,
+    "investName": "Ripple"
+  },
+  {
+    "investId": 3,
+    "investName": "Tron"
+  }
 ]

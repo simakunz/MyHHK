@@ -12,7 +12,8 @@ import { Component, OnInit } from '@angular/core';
 
 // styleUrls is an array that is why in []
 @Component({
-  selector: 'hhk-table',
+  // the selector is no longer required with routing
+  // selector: 'hhk-table',
   templateUrl: './hhk-table.component.html',
   styleUrls: ['./hhk-table.component.css']
 })

@@ -11,7 +11,8 @@ import { Component, OnInit } from '@angular/core';
 
 // styleUrls is an array that is why in []
 @Component({
-  selector: 'invest-table',
+  // the selector is no longer required with routing
+  // selector: 'invest-table',
   templateUrl: './invest-table.component.html',
   styleUrls: ['./invest-table.component.css']
 })
@@ -56,12 +57,15 @@ export class InvestTableComponent implements OnInit {
     /* an initialisations which are to be performed, will be done here */
     ngOnInit(): void {
       console.log('now we are in OnInit of InvestTableComponent');
-      
-      this._investTableService.getInvests('XRP', 'EUR').subscribe(
-        invests => this.invests = invests,
-        error => this.errorMessage = <any>error);
-        
-      this.filteredInvests = this.invests;
+
+      this._investTableService.getInvests('XRP', 'EUR')
+          .subscribe(invests => {
+            this.invests = invests;
+            this.filteredInvests = this.invests;
+          },
+          error => this.errorMessage = <any>error);
+
+
     }
 
 
