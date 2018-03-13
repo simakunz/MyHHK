@@ -9,22 +9,18 @@
                   see https://developer.mozilla.org/en-US/docs/Web/Events for all kind of events such as (click)
                 -->
             <table>
-              <td>
-                <button class='btn btn-primary'
-                  (click)='toggleImage()'>
+                <td>
+                    <button class='btn btn-primary' (click)='toggleImage()'>
                   {{showImage ? 'Hide' : 'Show'}} Image
                 </button>
-              </td>
-              <td>
-                <img *ngIf='showImage'
-                  [src]='imageUrl'
-                  [style.width.px] = 'imageWidth'
-                  [style.margin.px] = 'imageMargin' >
-              </td>
-              <td>
-                <hhk-star [rating]='4.6' (ratingClicked)='onRatingClicked($event)'></hhk-star>
-              </td>
-          </table>
+                </td>
+                <td>
+                    <img *ngIf='showImage' [src]='imageUrl' [style.width.px]='imageWidth' [style.margin.px]='imageMargin'>
+                </td>
+                <td>
+                    <hhk-star [rating]='4.6' (ratingClicked)='onRatingClicked($event)'></hhk-star>
+                </td>
+            </table>
         </div>
         <!--
         <div class='row'>
@@ -34,52 +30,54 @@
         </div>
         -->
         <div>
-        <div class='table-responsive'>
-            <table class='table'
-                     *ngIf='expenses && expenses.length'>
-                <thead>
-                    <tr> <!-- headline itself -->
-                        <th>Jahr</th>
-                        <th>Monat</th>
-                        <th>Kategorie</th>
-                        <th>Plan (in {{currency}})</th>
-                        <th>Ist (in {{currency}})</th>
-                        <th>Bemerkung</th>
-                    </tr>
-                    <tr> <!-- filters for headline -->
-                        <th>DropDownFilterYear</th>
-                        <th>DropdownFilterMonth</th>
-                        <th>DropDownFilterCategory
-                        <th> <!-- Plan -->
-                            <div class='col-md-4'>
-                                <input type='text' />
-                                <!-- [(ngModel)]='categoryFilter' /> -->
-                              </div>
-                        </th>
-                        <th> <!-- Actuals -->
-                            <div class='col-md-4'>
-                                <input type='text' />
-                                <!-- <input type='text' [(ngModel)]='listFilter' /> -->
-                              </div>
-                        </th>
-                        <th> <!-- Comments -->
-                            <div class='col-md-4'>
-                                <input type='text' [(ngModel)]='commentFilter' />
-                              </div>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                  <tr  *ngFor='let expense of filteredExpenses'>
-                    <td>{{ expense.expenseYear}}</td>
-                    <td>{{ expense.expenseMonth}}</td>
-                    <td>{{ expense.expenseCategory}}</td>
-                    <td>{{ expense.expensePlan | number:'1.2-2' | convertFX: fxRate }}</td>
-                    <td>{{ expense.expenseActuals | number:'1.2-2' | convertFX: fxRate }}</td>
-                    <td>{{ expense.expenseComment}}</td>
-                  </tr>
-                </tbody>
-                <!--
+            <div class='table-responsive'>
+                <table class='table' *ngIf='expenses && expenses.length'>
+                    <thead>
+                        <tr>
+                            <!-- headline itself -->
+                            <th>Jahr</th>
+                            <th>Monat</th>
+                            <th>Kategorie</th>
+                            <th>Plan (in {{currency}})</th>
+                            <th>Ist (in {{currency}})</th>
+                            <th>Bemerkung</th>
+                        </tr>
+                        <tr>
+                            <!-- filters for headline -->
+                            <th>DropDownFilterYear</th>
+                            <th>DropdownFilterMonth</th>
+                            <th>DropDownFilterCategory
+                                <th>
+                                    <!-- Plan -->
+                                    <div class='col-md-4'>
+                                        <input type='text' [(ngModel)]='plansFilter' />
+                                    </div>
+                                </th>
+                                <th>
+                                    <!-- Actuals -->
+                                    <div class='col-md-4'>
+                                        <input type='text' [(ngModel)]='actualsFilter' />
+                                    </div>
+                                </th>
+                                <th>
+                                    <!-- Comments -->
+                                    <div class='col-md-4'>
+                                        <input type='text' [(ngModel)]='commentFilter' />
+                                    </div>
+                                </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let expense of filteredExpenses'>
+                            <td>{{ expense.expenseYear}}</td>
+                            <td>{{ expense.expenseMonth}}</td>
+                            <td>{{ expense.expenseCategory}}</td>
+                            <td>{{ expense.expensePlan | number:'1.2-2' | convertFX: fxRate }}</td>
+                            <td>{{ expense.expenseActuals | number:'1.2-2' | convertFX: fxRate }}</td>
+                            <td>{{ expense.expenseComment}}</td>
+                        </tr>
+                    </tbody>
+                                        
                 <tbody>
                     <tr *ngFor='let product of filteredProducts'>
                         <td>
@@ -103,10 +101,10 @@
                         </td>
                     </tr>
                 </tbody> -->
-            </table>
+                </table>
+            </div>
         </div>
     </div>
-</div>
-<div *ngIf='errorMessage' class='alert alert-danger'>
-    Error: {{ errorMessage }}
-</div>
+    <div *ngIf='errorMessage' class='alert alert-danger'>
+        Error: {{ errorMessage }}
+    </div>

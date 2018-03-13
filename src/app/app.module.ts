@@ -30,8 +30,8 @@ import { InvestGuardService } from './tableview/invest-guard.service';
     RouterModule.forRoot([
       {path: 'hhk-table', component: HHKTableComponent},
       {path: 'invest-table', component: InvestTableComponent},
-      {path: 'invest-table/:id', 
-          canActivate:[ InvestGuardService ],
+      {path: 'invest-table/:id',
+          canActivate: [ InvestGuardService ],
           component: InvestTableDetailComponent},
       {path: 'welcome', component: WelcomeComponent},
       {path: '', redirectTo: 'welcome', pathMatch: 'full'},

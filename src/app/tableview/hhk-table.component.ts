@@ -38,8 +38,23 @@ export class HHKTableComponent implements OnInit {
       this.filteredExpenses = this.commentFilter ? this.performFilter(this.commentFilter) : this.expenses;
     }
 
+    _plansFilter: string;
+    get plansFilter(): string {
+        return this._plansFilter;
+      }
+    set plansFilter(value: string){
+        this._plansFilter = value;
+        this.filteredExpenses = this.plansFilter ? this.performFilter(this.plansFilter) : this.expenses;
+    }
 
-
+    _actualsFilter: string;
+    get actualsFilter(): string {
+        return this._actualsFilter;
+      }
+    set actualsFilter(value: string){
+        this._actualsFilter = value;
+        this.filteredExpenses = this.actualsFilter ? this.performFilter(this.actualsFilter) : this.expenses;
+    }
 
     currency: string = 'EUR';
     fxRate: number = 1;
