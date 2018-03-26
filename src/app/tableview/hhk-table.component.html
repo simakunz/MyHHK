@@ -44,39 +44,57 @@
                         </tr>
                         <tr>
                             <!-- filters for headline -->
-                            <th>
+                            <th> <!-- Year Filter -->
                               <div class='col-md-4'>
-                                  <select [ngModel]="selectedYear" (input)="onInput($event)">
-                                    Erklärung: https://embed.plnkr.co/plunk/5TUiaX
+                                  <select [(ngModel)]="selectedYear" (input)="onYearInput($event)">
                                       <option *ngFor="let y of years"
                                               [value]="y"
-                                              [selected]="y == selectedYear"
-                                             >
-                                            {{y}}
+                                      >
+                                      {{y}}
                                       </option>
                                    </select>
                               </div>
                             </th>
-                            <th>DropdownFilterMonth</th>
-                            <th>DropDownFilterCategory
-                                <th>
-                                    <!-- Plan -->
-                                    <div class='col-md-4'>
-                                        <input type='text' [(ngModel)]='plansFilter' />
-                                    </div>
-                                </th>
-                                <th>
-                                    <!-- Actuals -->
-                                    <div class='col-md-4'>
-                                        <input type='text' [(ngModel)]='actualsFilter' />
-                                    </div>
-                                </th>
-                                <th>
-                                    <!-- Comments -->
-                                    <div class='col-md-4'>
-                                        <input type='text' [(ngModel)]='commentFilter' />
-                                    </div>
-                                </th>
+                            <th> <!-- Month Filter -->
+                                <div class='col-md-4'>
+                                    <select [(ngModel)]="selectedMonth" (input)="onMonthInput($event)">
+                                        <option *ngFor="let m of months"
+                                                [value]="m"
+                                            >
+                                            {{m}}
+                                        </option>
+                                     </select>
+                                </div>
+                            </th>
+                            <th> <!-- Category Filter -->
+                                <div class='col-md-4'>
+                                    <select [(ngModel)]="selectedCategory" (input)="onCategoryInput($event)">
+                                        <option *ngFor="let c of categories"
+                                                [value]="c"
+                                            >
+                                            {{c}}
+                                        </option>
+                                        </select>
+                                </div>
+                            </th>
+                            <th>
+                                <!-- Plan -->
+                                <div class='col-md-4'>
+                                    <input type='text' [(ngModel)]='plansFilter' />
+                                </div>
+                            </th>
+                            <th>
+                                <!-- Actuals -->
+                                <div class='col-md-4'>
+                                    <input type='text' [(ngModel)]='actualsFilter' />
+                                </div>
+                            </th>
+                            <th>
+                                <!-- Comments -->
+                                <div class='col-md-4'>
+                                    <input type='text' [(ngModel)]='commentFilter' />
+                                </div>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>

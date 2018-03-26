@@ -37,9 +37,9 @@
                     </thead>
                     <tbody>
                         <tr *ngFor='let invest of filteredInvests'>
-                            <td>{{ invest.investId}}</td>
+                            <td>{{ invest.success}}</td>
                             <td>
-                                <a [routerLink]="['/invest-table/', invest.investId]">{{invest.investName}}</a>
+                                <a [routerLink]="['/invest-table/', invest.investId]">{{invest.timestamp}}</a>
                             </td>
                             <!-- Rest muss noch definiert werden
                     <td>{{ expense.expenseCategory}}</td>

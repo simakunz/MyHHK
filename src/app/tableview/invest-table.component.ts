@@ -64,8 +64,6 @@ export class InvestTableComponent implements OnInit {
             this.filteredInvests = this.invests;
           },
           error => this.errorMessage = <any>error);
-
-
     }
 
 
@@ -73,6 +71,6 @@ export class InvestTableComponent implements OnInit {
       filterBy = filterBy.toLocaleLowerCase();
       // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
       return this.invests.filter((invest: IInvest) =>
-        invest.investName.toLocaleLowerCase().indexOf(filterBy) !== -1);
+        invest.ticker.base.toLocaleLowerCase().indexOf(filterBy) !== -1);
     }
 }

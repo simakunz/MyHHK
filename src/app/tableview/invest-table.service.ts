@@ -10,8 +10,11 @@ import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class InvestTableService {
-  private _ccBaseUrl = 'https://min-api.cryptocompare.com/data/';
+  private _ccBaseUrl = 'https://api.cryptonator.com/api/ticker/';
   private _ccFinalUrl: string;
+  private temp: any;
+
+
   constructor(private _http: HttpClient) {
 
   }
@@ -22,12 +25,16 @@ export class InvestTableService {
     Definition can be found here: https://min-api.cryptocompare.com/
       */
   getInvests(cName: string, destCurrency: string): Observable<IInvest[]> {
-    return this._http.get<IInvest[]>('../../api/products/invests.json')
+    /* return this._http.get<IInvest[]>('../../api/products/invests.json')
                .do(data => console.log('All: ' + JSON.stringify(data)))
-               .catch(this.handleError);
+               .catch(this.handleError); */
     // für später mal:
-    // this._ccFinalUrl = this._ccBaseUrl + 'price?fsym=' + cName + '&tsyms=' + destCurrency;
-    // return this._http.get(this._ccFinalUrl);
+    this._ccFinalUrl = this._ccBaseUrl +  cName + '-' + destCurrency;
+    return this._http.get<IInvest[]>(this._ccFinalUrl)
+               .do(data => console.log('JSON all: ' + JSON.stringify(data)))
+               .catch(this.handleError);
+    // console.log('JSON Antwort: ' + this.temp);
+    // return this.temp;
   }
 
   private handleError(err: HttpErrorResponse) {
