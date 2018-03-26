@@ -70,7 +70,10 @@ export class InvestTableComponent implements OnInit {
     performFilter(filterBy: string): IInvest[] {
       filterBy = filterBy.toLocaleLowerCase();
       // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
-      return this.invests.filter((invest: IInvest) =>
-        invest.ticker.base.toLocaleLowerCase().indexOf(filterBy) !== -1);
+      // return this.invests.filter((invest: IInvest) =>
+      //  invest.ticker.base.toLocaleLowerCase().indexOf(filterBy) !== -1);
+      
+      // das hier ist noch völlig falsch!
+      return this.invests;
     }
 }

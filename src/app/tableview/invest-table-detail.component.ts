@@ -20,10 +20,10 @@ export class InvestTableDetailComponent implements OnInit {
     // +this dient nur dazu, um den String "id" in eine Zahl umzuwandeln
     let id = +this._route.snapshot.paramMap.get('id');
     this.title += `: ${id}`;
-    this.invest = {
+    /* this.invest = {
       "investId": id,
       "investName": "test name of an Id"
-    }
+    } */
   }
 
   onBack(): void {

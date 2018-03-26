@@ -8,10 +8,13 @@ export interface IInvestTicker {
 
 export interface IInvest {
   investId: number;
-  ticker: IInvestTicker;
-  timestamp: string;
-  success: string;
-  error: string;
+  EUR: number;
+   /*
+   ticker: IInvestTicker;
+   timestamp: number;
+   success: boolean;
+   error: string;
+   */
   // rest to be defined to match the respective web service data
 
 }

@@ -6,7 +6,7 @@
 
         <div>
             <div class='table-responsive'>
-                <table class='table' *ngIf='invests && invests.length'>
+                <table class='table'>
                     <thead>
                         <tr>
                             <!-- headline itself -->
@@ -35,11 +35,11 @@
                             <!-- Rest muss noch definiert werden -->
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody *ngIf='invests && invests.length'>
                         <tr *ngFor='let invest of filteredInvests'>
                             <td>{{ invest.success}}</td>
                             <td>
-                                <a [routerLink]="['/invest-table/', invest.investId]">{{invest.timestamp}}</a>
+                                <a [routerLink]="['/invest-table/', invest.investId]">{{invest.EUR}}</a>
                             </td>
                             <!-- Rest muss noch definiert werden
                     <td>{{ expense.expenseCategory}}</td>
