@@ -24,6 +24,7 @@ export class InvestTableComponent implements OnInit {
     /* ******************************************************
     * to filter properly, the get and set methods are used  *
     ******************************************************* */
+    /*
     _investFilter: string;
     get investFilter(): string {
       return this._investFilter;
@@ -32,11 +33,11 @@ export class InvestTableComponent implements OnInit {
       this._investFilter = value;
       this.filteredInvests = this.investFilter ? this.performFilter(this.investFilter) : this.invests;
     }
-
+    */
 
     currency: string = 'EUR'; // muss noch ausgelagert werden
     fxRate: number = 1; // muss noch ausgelagert werden
-    filteredInvests: IInvest[];
+    //to be enabled again: filteredInvests: IInvest[];
     invests: IInvest[];
     errorMessage: string;
 
@@ -50,7 +51,7 @@ export class InvestTableComponent implements OnInit {
     */
     constructor(private _investTableService: InvestTableService) {
 
-      this.investFilter = '';
+      //to be enabled again: this.investFilter = '';
     }
 
 
@@ -61,12 +62,13 @@ export class InvestTableComponent implements OnInit {
       this._investTableService.getInvests('XRP', 'EUR')
           .subscribe(invests => {
             this.invests = invests;
-            this.filteredInvests = this.invests;
+            //to be enabled again: this.filteredInvests = this.invests; 
           },
           error => this.errorMessage = <any>error);
     }
 
-
+    /*
+    to be enabled again
     performFilter(filterBy: string): IInvest[] {
       filterBy = filterBy.toLocaleLowerCase();
       // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
@@ -76,4 +78,6 @@ export class InvestTableComponent implements OnInit {
       // das hier ist noch völlig falsch!
       return this.invests;
     }
+    */
+    
 }
