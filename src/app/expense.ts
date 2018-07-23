@@ -1,5 +1,5 @@
 export interface IExpense {
-  expenseId: number;
+  id: number;
   expenseYear: number;
   expenseMonth: string;
   expenseCategory:  string;

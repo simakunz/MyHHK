@@ -1,13 +1,14 @@
 import { HHKTableService } from './hhk-table.service';
 // import { Expense, IExpense } from './expense';
-import { IExpense } from './expense';
+import { IExpense } from '../expense';
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from '../messages/message.service';
 
 
 /* *****************************************************************
  * Open ToDo's:
- *  - filters für Zahlen (Plan und Actuals)
- *  - Filter für DropDowns (Year, Month, Category)
+ *  - Filter für DropDowns (Month, Category) <=> nur Year funktioniert
+ *  - add a "clear Filters" button
  * **************************************************************** */
 
 // styleUrls is an array that is why in []
@@ -32,6 +33,7 @@ export class HHKTableComponent implements OnInit {
     selectedCategory: string;
     currency: string = 'EUR';
     fxRate: number = 1;
+    _expenseFilters: string[] = ['', '', '', '', '', ''];
     filteredExpenses: IExpense[];
     expenses: IExpense[];
     temp: IExpense[];
@@ -47,52 +49,53 @@ export class HHKTableComponent implements OnInit {
     * filters[4] = month
     * filters[5] = category
     ******************************************************* */
-    _filters: string[] = ['', '', '', '', '', ''];
+    
     get commentFilter(): string {
-      return this._filters[0];
+      return this._expenseFilters[0];
     }
+
     set commentFilter(value: string){
-      this._filters[0] = value;
-      this.filteredExpenses = this.commentFilter ? this.performFilter(this._filters) : this.expenses;
+      this._expenseFilters[0] = value;
+      this.filteredExpenses = this.commentFilter ? this.performFilter(this._expenseFilters) : this.expenses;
     }
 
     get plansFilter(): string {
-        return this._filters[2];
+        return this._expenseFilters[2];
       }
     set plansFilter(value: string){
-        this._filters[2] = value;
-        this.filteredExpenses = this.plansFilter ? this.performFilter(this._filters) : this.expenses;
+        this._expenseFilters[2] = value;
+        this.filteredExpenses = this.plansFilter ? this.performFilter(this._expenseFilters) : this.expenses;
     }
 
     get actualsFilter(): string {
-        return this._filters[1];
+        return this._expenseFilters[1];
       }
     set actualsFilter(value: string){
-        this._filters[1] = value;
-        this.filteredExpenses = this.actualsFilter ? this.performFilter(this._filters) : this.expenses;
+        this._expenseFilters[1] = value;
+        this.filteredExpenses = this.actualsFilter ? this.performFilter(this._expenseFilters) : this.expenses;
     }
 
     onYearInput($event): void {
       console.log('es wurde folgendes Jahr gewählt: ' + $event.target.value);
       this.selectedYear = +$event.target.value;
-      this._filters[3] = $event.target.value;
-      this.filteredExpenses = $event.target.value ? this.performFilter(this._filters) : this.expenses;
+      this._expenseFilters[3] = $event.target.value;
+      this.filteredExpenses = $event.target.value ? this.performFilter(this._expenseFilters) : this.expenses;
     }
 
     onMonthInput($event): void {
       console.log('es wurde folgender Monat gewählt: ' + $event.target.value);
       this.selectedMonth = $event.target.value;
-      this._filters[4] = $event.target.value;
-      this.filteredExpenses = $event.target.value ? this.performFilter(this._filters) : this.expenses;
+      this._expenseFilters[4] = $event.target.value;
+      this.filteredExpenses = $event.target.value ? this.performFilter(this._expenseFilters) : this.expenses;
     }
 
     onCategoryInput($event): void {
       console.log('es wurde folgende Kategorie gewählt: "' + $event.target.value + '".');
       this.selectedCategory = $event.target;
-      this._filters[5] = $event.target.value;
+      this._expenseFilters[5] = $event.target.value;
       if ($event.target.value) {
         console.log('onCategoryInput: $event.target.value is true: ' + $event.target.value);
-        this.performFilter(this._filters);
+        this.performFilter(this._expenseFilters);
       } else {
         console.log('onCategoryInput: $event.target.value is false: ' + $event.target.value);
         this.expenses;
@@ -107,7 +110,7 @@ export class HHKTableComponent implements OnInit {
       this.commentFilter = '';
     }
     */
-   constructor(private _hhkTableService: HHKTableService) {
+   constructor(private _hhkTableService: HHKTableService, private messageService: MessageService) {
 
     this.commentFilter = '';
     this.actualsFilter = '';
@@ -121,12 +124,11 @@ export class HHKTableComponent implements OnInit {
     }
 
 
-    // tslint:disable-next-line:no-trailing-whitespace
-
-    /* an initialisations which are to be performed, will be done here */
     ngOnInit(): void {
-      this.expenses = this._hhkTableService.getExpenses();
-      this.filteredExpenses = this.expenses;
+      this._hhkTableService.getExpenses().subscribe(expenses => {this.expenses = expenses;
+        console.log(expenses);
+        this.filteredExpenses = this.expenses});
+    
       this.years = [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021];
       this.months = ['Januar', 'Februar', 'März',
                       'April', 'Mai', 'Juni', 'Juli',
@@ -151,11 +153,14 @@ export class HHKTableComponent implements OnInit {
       // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
 
       // console.log('Category: ' + this.expenses.expenseCategory + '<- aktueller Expense');
-      console.log('FilterBy[4]: "' + filterBy[4] + '"');
-      console.log('expenses[0].month: "' + this.expenses[0].expenseMonth + '"');
-      console.log('beides gleich?: ' + filterBy[4] == this.expenses[0].expenseMonth);
-      console.log('Februar' === filterBy[4].toString());
-      console.log('Februar' === this.expenses[0].expenseMonth.toString());
+      let t2 = false;
+
+      this.log(`FilterBy[4]: "` + filterBy[4] + `"`);
+      this.log(`expenses[0].month: "${this.expenses[0].expenseMonth}"`);
+      let t1 = filterBy[4] == this.expenses[0].expenseMonth;
+      this.log(`beides gleich?: ${t1}`);
+      this.log(`Februar = "${filterBy[4].toString()}"`);
+      this.log(`Februar = "${this.expenses[0].expenseMonth.toString()}"`);
       
       this.temp = this.expenses.filter((expense: IExpense) =>
         expense.expenseComment.toLocaleLowerCase().indexOf(filterBy[0]) !== -1 &&
@@ -186,6 +191,11 @@ export class HHKTableComponent implements OnInit {
           expense.expensePlan.toString().toLocaleLowerCase().indexOf(filterBy) !== -1);
       }
 */
+    }
+
+    /** Log a HHK-Table-Service message with the MessageService - once copied from Tour of Heroes ;-) */
+    private log(message: string) {
+      this.messageService.add('HHK-Table-Component: ' + message);
     }
 
 

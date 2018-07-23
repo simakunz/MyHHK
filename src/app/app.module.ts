@@ -1,16 +1,19 @@
 import { StarComponent } from './shared/star.component';
-import { HHKTableComponent } from './tableview/hhk-table.component';
+import { HHKTableComponent } from './hhk-table/hhk-table.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ConvertFX } from './shared/convertFX.pipe';
-import { InvestTableComponent } from './tableview/invest-table.component';
-import { InvestTableDetailComponent } from './tableview/invest-table-detail.component';
+import { InvestTableComponent } from './invest-table/invest-table.component';
+import { InvestTableDetailComponent } from './invest-table-detail/invest-table-detail.component';
 import { WelcomeComponent } from './home/welcome.component';
 import { RouterModule } from '@angular/router';
-import { InvestGuardService } from './tableview/invest-guard.service';
+import { InvestGuardService } from './invest-table/invest-guard.service';
+import { MessagesComponent } from './messages/message.component';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryHHKService } from './hhk-table/in-memory-hhk.service';
 
 @NgModule({
   declarations: [
@@ -20,13 +23,18 @@ import { InvestGuardService } from './tableview/invest-guard.service';
     StarComponent,
     InvestTableComponent,
     InvestTableDetailComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
+    // and returns simulated server responses.
+    // Remove it when a real server is ready to receive requests.
     // the sequence of the routing matters! <=> less important ones always at the bottom
+    HttpClientInMemoryWebApiModule.forRoot( InMemoryHHKService ),
     RouterModule.forRoot([
       {path: 'hhk-table', component: HHKTableComponent},
       {path: 'invest-table', component: InvestTableComponent},

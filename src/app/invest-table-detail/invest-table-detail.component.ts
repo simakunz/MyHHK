@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IInvest } from './invest';
+import { IInvest } from '../invest';
 
 
 @Component({
@@ -8,6 +8,7 @@ import { IInvest } from './invest';
   templateUrl: './invest-table-detail.component.html',
   styleUrls: ['./invest-table-detail.component.css']
 })
+
 export class InvestTableDetailComponent implements OnInit {
   title: string = 'Invest Detail';
   invest: IInvest;

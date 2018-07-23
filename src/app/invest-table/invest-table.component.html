@@ -5,15 +5,36 @@
     <div class='table-responsive'>
         <table class='table'>
             <thead>
-                <td>ID</td>
-                <td>Euro-Wert 1</td>
-                <td>Euro-Wert 2</td>
+                <tr>
+                    <!-- headline itself -->
+                    <td>ID</td>
+                    <td>Euro-Wert 1</td>
+                    <td>Euro-Wert 2</td>
+                </tr>
+                    <!-- filters for headline -->
+                    <th>
+                        <!-- ID Filter -->
+                        <div class='col-md-4'>
+                            <input type='text' [(ngModel)]='idFilter' />
+                        </div>
+                    </th>
+                    <th>
+                        <!-- SPÄTER MAL!! EUR-1 Filter 
+                        <div class='col-md-4'>
+                            <input type='text' [(ngModel)]='eurFilter' />
+                        </div>
+                        -->
+                    </th>
+                <tr>
+
+                </tr>
             </thead>
             <tbody *ngIf='invests && invests.length'>
                 <tr>erster Eintrag im Body</tr>
-                <tr *ngFor='let invest of invests'>
-                    <td>ID = 1</td>
+                <tr *ngFor='let invest of filteredInvests'>
+                    <td>{{ invest.investId }}</td>
                     <td>{{ invest.EUR }}</td>
+                    <td>Euro-Wert 2 nicht gesetzt</td>
                     <!--
                     <td>
                         <a [routerLink]="['/invest-table/', invest.investId]">{{invest.EUR}}</a>
@@ -21,9 +42,11 @@
                     -->
                 </tr>
             </tbody>
+        <!--
             <tbody>
                 <td>Ende der Tabelle</td>
             </tbody>
+        -->
         </table>
         <!--
         <div>
