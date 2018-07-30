@@ -3,6 +3,7 @@ import { HHKTableComponent } from './hhk-table/hhk-table.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ConvertFX } from './shared/convertFX.pipe';
@@ -14,6 +15,8 @@ import { InvestGuardService } from './invest-table/invest-guard.service';
 import { MessagesComponent } from './messages/message.component';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryHHKService } from './hhk-table/in-memory-hhk.service';
+import { AddExpenseComponent } from './add-expense/add-expense.component';
+
 
 @NgModule({
   declarations: [
@@ -24,11 +27,13 @@ import { InMemoryHHKService } from './hhk-table/in-memory-hhk.service';
     InvestTableComponent,
     InvestTableDetailComponent,
     WelcomeComponent,
-    MessagesComponent
+    MessagesComponent,
+    AddExpenseComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
@@ -41,6 +46,7 @@ import { InMemoryHHKService } from './hhk-table/in-memory-hhk.service';
       {path: 'invest-table/:id',
           canActivate: [ InvestGuardService ],
           component: InvestTableDetailComponent},
+      {path: 'add-expense', component: AddExpenseComponent},
       {path: 'welcome', component: WelcomeComponent},
       {path: '', redirectTo: 'welcome', pathMatch: 'full'},
       // next route ('**' is usually redirected to PageNotFound

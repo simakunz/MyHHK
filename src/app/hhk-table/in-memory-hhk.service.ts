@@ -49,7 +49,7 @@ export class InMemoryHHKService implements InMemoryDbService {
             id: 5,
             expenseYear: 2018,
             expenseMonth: 'April',
-            expenseCategory: 'Zum regulären Ausgeben',
+            expenseCategory: 'jhrl. Ausgaben',
             expenseActuals: 4.49,
             expensePlan: 200,
             expenseComment: 'Star Trek Timelines'
@@ -58,9 +58,9 @@ export class InMemoryHHKService implements InMemoryDbService {
             id: 6,
             expenseYear: 2018,
             expenseMonth: 'März',
-            expenseCategory: 'Zum regulären Ausgeben',
+            expenseCategory: 'jhrl. Ausgaben',
             expenseActuals: 27.99,
-            expensePlan: 200,
+            expensePlan: 400,
             expenseComment: 'Star Trek Timelines'
           }
         ];

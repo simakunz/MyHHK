@@ -13,12 +13,24 @@
                     <button class='btn btn-primary' (click)='toggleImage()'>
                   {{showImage ? 'Hide' : 'Show'}} Image
                 </button>
+               
                 </td>
                 <td>
                     <img *ngIf='showImage' [src]='imageUrl' [style.width.px]='imageWidth' [style.margin.px]='imageMargin'>
                 </td>
                 <td>
                     <hhk-star [rating]='4.6' (ratingClicked)='onRatingClicked($event)'></hhk-star>
+                </td>
+                <td>
+                    <!-- Original von ToH (added erst und löscht dann das Eingabefeld: 
+                    <button (click)="add(heroName.value); heroName.value=''">add</button> 
+                    
+                    <button class='btn btn-primary' (click)='add(inputCategory.value, inputIsAmount.value, inputComment.value, inputMonth.value, inputPlanAmount.value, inputYear.value)'>add</button>
+                    -->
+                    <button class='btn btn-primary' [routerLink]="['/add-expense']">Add Expense</button>
+                    <button class='btn btn-primary' (click)='delete(TODO)'>Delete</button>
+                    <button class='btn btn-primary' (click)='update(TODO)'>Update</button>
+                    <button class='btn btn-primary' (click)='clearFilters()'>Clear Filters</button>
                 </td>
             </table>
         </div>
@@ -42,10 +54,46 @@
                             <th>Ist (in {{currency}})</th>
                             <th>Bemerkung</th>
                         </tr>
+                        <!-- input fields for the 'add' method -->
+                        <!--
+                        <tr>
+                            <th>
+                                <div class='col-md-4'>
+                                    <input type='text' [(ngModel)]='addYear' />
+                                </div>
+                        </th>
+                            <th>
+                                <div class='col-md-4'>
+                                    <input type='text' [(ngModel)]='addMonth' />
+                                </div>
+                            </th>
+                            <th>
+                                <div class='col-md-4'>
+                                    <input type='text' [(ngModel)]='addCategory' />
+                                </div>>
+                            </th>
+                            <th>
+                                <div class='col-md-4'>
+                                    <input type='text' [(ngModel)]='addPlan' />
+                                </div>
+                            </th>
+                            <th>
+                                <div class='col-md-4'>
+                                    <input type='text' [(ngModel)]='addExpense' />
+                                </div>
+                            </th>
+                            <th>
+                                <div class='col-md-4'>
+                                    <input type='text' [(ngModel)]='addComment' />
+                                </div>
+                            </th>
+
+                        </tr>
+                    -->
                         <tr>
                             <!-- filters for headline -->
                             <th> <!-- Year Filter -->
-                              <div class='col-md-4'>
+                              <div class='col-md-2'>
                                   <select [(ngModel)]="selectedYear" (input)="onYearInput($event)">
                                       <option *ngFor="let y of years"
                                               [value]="y"
@@ -56,7 +104,7 @@
                               </div>
                             </th>
                             <th> <!-- Month Filter -->
-                                <div class='col-md-4'>
+                                <div class='col-md-2'>
                                     <select [(ngModel)]="selectedMonth" (input)="onMonthInput($event)">
                                         <option *ngFor="let m of months"
                                                 [value]="m"
@@ -67,7 +115,7 @@
                                 </div>
                             </th>
                             <th> <!-- Category Filter -->
-                                <div class='col-md-4'>
+                                <div class='col-md-2'>
                                     <select [(ngModel)]="selectedCategory" (input)="onCategoryInput($event)">
                                         <option *ngFor="let c of categories"
                                                 [value]="c"
@@ -79,19 +127,19 @@
                             </th>
                             <th>
                                 <!-- Plan -->
-                                <div class='col-md-4'>
+                                <div class='col-md-2'>
                                     <input type='text' [(ngModel)]='plansFilter' />
                                 </div>
                             </th>
                             <th>
                                 <!-- Actuals -->
-                                <div class='col-md-4'>
+                                <div class='col-md-2'>
                                     <input type='text' [(ngModel)]='actualsFilter' />
                                 </div>
                             </th>
                             <th>
                                 <!-- Comments -->
-                                <div class='col-md-4'>
+                                <div class='col-md-2'>
                                     <input type='text' [(ngModel)]='commentFilter' />
                                 </div>
                             </th>

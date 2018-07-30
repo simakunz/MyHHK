@@ -1,3 +1,18 @@
 thead {
     color: #337AB7;
 }
+
+button {
+    background-color: #337AB7;
+    border: none;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+    cursor: hand;
+    font-family: Arial;
+  }
+  
+  button:hover {
+    background-color: #cfd8dc;
+  }

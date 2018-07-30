@@ -73,6 +73,15 @@ export class HHKTableService {
     );
   }
 
+  /** POST: add a new expense to the server */
+  addExpense (expense: IExpense): Observable<IExpense> {
+    return this.http.post<IExpense>(this.hhkUrl, expense, httpOptions).pipe(
+      tap((expense: IExpense) => this.log(`added expense w/ id=${expense.id}, comment=${expense.expenseComment}, 
+          amount=${expense.expenseActuals} and category=${expense.expenseCategory}`)),
+      catchError(this.handleError<IExpense>('addExpense'))
+    );
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.

@@ -14,9 +14,9 @@ export class Expense implements IExpense {
               public expenseYear: number,
               public expenseMonth: string,
               public expenseCategory: string,
-              private expensePlan: number,
+              private expensePlan?: number,
               private expenseActuals: number,
-              public expenseComment: string) {
+              public expenseComment?: string) {
   }
 
   getActuals(fxRate: number): number {

@@ -1,8 +1,27 @@
+@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
 /* You can add global styles to this file, and also import other style files */
+
 li {
-    font-size: large;
+  font-size: large;
 }
 
 div.panel-heading {
-   font-size: x-large;
+  font-size: x-large;
+}
+
+/* marks all required and valid entries with a green vertical line
+   on the left corner of the input field */
+
+.ng-valid[required],
+.ng-valid.required {
+  border-left: 5px solid #42A948;
+  /* green */
+}
+
+
+/* marks all invalid entries with a red vertical line
+   on the left corner of the input field */
+.ng-invalid:not(form) {
+  border-left: 5px solid #a94442;
+  /* red */
 }
