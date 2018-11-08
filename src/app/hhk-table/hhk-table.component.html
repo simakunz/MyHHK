@@ -147,6 +147,8 @@
                     </thead>
                     <tbody>
                         <tr *ngFor='let expense of filteredExpenses'>
+                            <button class="delete" title="delete expense"
+                                (click)="delete(expense)">  x  </button>
                             <td>{{ expense.expenseYear}}</td>
                             <td>{{ expense.expenseMonth}}</td>
                             <td>{{ expense.expenseCategory}}</td>

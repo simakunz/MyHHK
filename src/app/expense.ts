@@ -10,14 +10,30 @@ export interface IExpense {
 
 /*
 export class Expense implements IExpense {
-  constructor (public expenseId: number,
-              public expenseYear: number,
-              public expenseMonth: string,
-              public expenseCategory: string,
-              private expensePlan?: number,
-              private expenseActuals: number,
-              public expenseComment?: string) {
+  
+  constructor (id: number,
+              expenseYear: number,
+              expenseMonth: string,
+              expenseCategory: string,
+              expensePlan: number,
+              expenseActuals: number,
+              expenseComment: string) {
   }
+
+  constructor () {
+    this.id = 999;
+    this.expenseYear = 2018;
+    this.expenseActuals = 0;
+    //TODO: use a category instance instead of hard coding!!!
+    this.expenseCategory = 'Zum regulären Ausgeben';
+    this.expenseComment = '';
+    //TODO: use months instance instead of hard coding!!
+    this.expenseMonth = 'Januar';
+    this.expensePlan = 0;
+  }
+
+  //TODO: add two further constructors: 
+  //      - one with an Expense as argument
 
   getActuals(fxRate: number): number {
     return this.expenseActuals * fxRate;

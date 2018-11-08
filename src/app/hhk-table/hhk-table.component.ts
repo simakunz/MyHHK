@@ -40,7 +40,7 @@ export class HHKTableComponent implements OnInit {
     filteredExpenses: IExpense[];
     expenses: IExpense[];
     //temp: IExpense[];
-    tempExp: IExpense;
+    //tempExp: IExpense;
     /*
     icYear = new FormControl(''); //input control Year
     icMonth = new FormControl(''); // input control Month
@@ -189,7 +189,10 @@ export class HHKTableComponent implements OnInit {
     }
  */
 
-
+  delete(expense: IExpense): void {
+    this.expenses = this.expenses.filter(e => e !== expense);
+    this._hhkTableService.deleteExpense(expense).subscribe();
+  }
 
     
 

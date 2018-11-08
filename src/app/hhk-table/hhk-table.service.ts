@@ -75,12 +75,23 @@ export class HHKTableService {
 
   /** POST: add a new expense to the server */
   addExpense (expense: IExpense): Observable<IExpense> {
+    this.log(`addExpense received the expense ${this.stringifyExpense(expense)}`);
     return this.http.post<IExpense>(this.hhkUrl, expense, httpOptions).pipe(
-      tap((expense: IExpense) => this.log(`added expense w/ id=${expense.id}, comment=${expense.expenseComment}, 
-          amount=${expense.expenseActuals} and category=${expense.expenseCategory}`)),
+      //tap((expense: IExpense) => this.log(`added expense ${this.stringifyExpense(expense)}`)),
       catchError(this.handleError<IExpense>('addExpense'))
     );
   }
+
+/** DELETE: delete the expense from the server */
+deleteExpense (expense: IExpense | number): Observable<IExpense> {
+  const id = typeof expense === 'number' ? expense : expense.id;
+  const url = `${this.hhkUrl}/${id}`;
+  //TODO: Update of list missing!!! (deletion done but no visual update)
+  return this.http.delete<IExpense>(url, httpOptions).pipe(
+    tap(_ => this.log(`deleted expense id=${id}`)),
+    catchError(this.handleError<IExpense>('deleteExpense'))
+  );
+}
 
   /**
    * Handle Http operation that failed.
@@ -107,7 +118,17 @@ export class HHKTableService {
     this.messageService.add('HHK-Table-Service: ' + message);
   }
   
-
+  stringifyExpense(e: IExpense): String{
+    let s = "expense Object={" + 
+            (e.id ? e.id : "null") + ", " + 
+            (e.expenseYear ? e.expenseYear.toString() : "null") + ", " +
+            (e.expenseMonth ? e.expenseMonth.toString() : "null") + ", " +
+            (e.expenseCategory ? e.expenseCategory.toString() : "null")  + ", " +
+            (e.expenseActuals ? e.expenseActuals.toString() : "null")  + ", " +
+            (e.expenseComment ? e.expenseComment.toString() : "null")  + ", " +
+            (e.expensePlan ? e.expensePlan.toString() : "null") + "}";
+    return s;
+  }
 
 
   /*******************************************
