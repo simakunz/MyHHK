@@ -33,7 +33,6 @@ export class AddExpenseComponent implements OnInit {
 
   pageTitle: string = 'MyHHK Add Expense';
   //expenseGroup: FormGroup;
-  expense: IExpense;
   expenses: IExpense[];
   years: number[];
   months: string[];
@@ -61,22 +60,14 @@ export class AddExpenseComponent implements OnInit {
     this.icPlan = new FormControl('');
     this.icExpense = new FormControl('0', Validators.required);
 
-    this.expense = {id: 999, 
-                    expenseActuals: 0, 
-                    expenseCategory: 'Zum regulären Ausgeben,',
-                    expenseComment: '',
-                    expenseMonth: 'November',
-                    expensePlan: 0,
-                    expenseYear: 2018
-                  };
-
-    //TODO: kann sein dass wir hier auch filteredExpenses brauchen
+    //TODO: kann sein dass wir hier auch filteredExpenses brauchen?
     this.hhkTableService.getExpenses().subscribe(expenses => {this.expenses = expenses;
-                                                              //this.expense = this.expenses[4];
-                                                              
-                                                              //console.log(expenses);
-                                                              
-                                                              //this.log(`expense definiert als: ${this.hhkTableService.stringifyExpense(this.expense)}`)
+                                                              /*this.log(`all expenses received in ngOnInit of add-expense-component:`);
+                                                              for (let exp of this.expenses){
+                                                                this.log(`expense: ${this.hhkTableService.stringifyExpense(exp)}`);
+                                                              }
+                                                              console.log(this.expenses);
+                                                              */
                                                             });
     //this.log(`Years is initated with: "${y}"`);
     this.years = this.y.getYears();
@@ -100,36 +91,34 @@ export class AddExpenseComponent implements OnInit {
   get icExpense() { return this.expenseGroup.get('icExpense'); }
   */
 
-  onSubmit(): void {
+  onSubmit(expenseCategory: String, expenseComment: String, expensePlan: number, expenseActuals: number, expenseMonth: String, expenseYear: number): void {
     this.log(`**************`);
     this.log(`* new submit *`);
     this.log(`**************`);
+
+    this.log(`submitting ${this.hhkTableService.stringifyExpense({expenseCategory,expenseComment,expensePlan,expenseActuals,expenseMonth, expenseYear } as IExpense)}`);
+    
+    
+    this.hhkTableService.addExpense({expenseCategory,expenseComment,expensePlan,expenseActuals,expenseMonth, expenseYear } as IExpense)
+        .subscribe(expense => this.expenses.push(expense));
+
+    /*working
     if (this.expense) {
       //this.expense.id = 99;
       this.log(`submitting ${this.hhkTableService.stringifyExpense(this.expense)}`);
       //console.log(`submitting the following expense: ${this.hhkTableService.stringifyExpense(this.expense)}`);
       
-      //TODO: this is an update of any existing line! ==> use it later once entries can be selected purposefully!
       this.hhkTableService.addExpense(this.expense).subscribe(expense => this.expenses.push(expense));
 
-      
-
-      /*
-      foreach e in this.expenses {
-        e.
-      }
-      */
-      this.log(`onSubmit executed: "TODO"`);
+      //this.log(`onSubmit executed: "TODO"`);
       this.submitted = true;
-    } else { 
-      this.log(`this.expense is null / not set and therefore cannot be submitted`);
     }
+    else { 
+      this.log(`this.expense is null / not set and therefore cannot be submitted`);
+    }  
+    */
   }
-
-  onSubmitAddNew(): void {
-    this.log(`onSubmitAddNew executed: "TODO"`);
-    this.submitted = true;
-  }
+  
 
   //goes back to HHK Table
   goBack(): void {

@@ -12,7 +12,7 @@
   <form #expenseForm="ngForm" *ngIf='expenses && expenses.length'>
     <div class="form-group">
       <label for="icYear">Year</label>
-      <select class="form-control" id="icYear" required [(ngModel)]="expense.expenseYear" placeholder="1900" name="icYear">
+      <select class="form-control" id="icYear" required placeholder="1900" name="icYear">
         <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
           Year of the expense is required.
         </div>
@@ -22,7 +22,8 @@
 
     <div class="form-group">
       <label for="icMonth">Month</label>
-      <select class="form-control" id="icMonth" required [(ngModel)]="expense.expenseMonth" placeholder="Januar" name="icMonth">
+      <!-- [(ngModel)]="expense.expenseMonth"  -->
+      <select class="form-control" id="icMonth" required placeholder="Januar" name="icMonth">
         <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
           Month of the expense is required.
         </div>
@@ -32,8 +33,8 @@
 
     <div class="form-group">
       <label for="icExpense">Expense Value</label>
-      <input type="number" class="form-control" id="icExpense" required [(ngModel)]="expense.expenseActuals" placeholder="0.00"
-        name="icExpense" #name="ngModel">
+      <input type="number" class="form-control" id="icExpense" required placeholder="0.00"
+        name="icExpense">
       <div [hidden]="icExpense.valid || icExpense.pristine" class="alert alert-danger">
         Expense amount is required and must be a number.
       </div>
@@ -41,19 +42,19 @@
 
     <div class="form-group">
       <label for="icCategory">Category</label>
-      <select class="form-control" id="icCategory" required [(ngModel)]="expense.expenseCategory" placeholder="Zum Ausgeben" name="icCategory">
+      <select class="form-control" id="icCategory" required placeholder="Zum Ausgeben" name="icCategory">
         <option *ngFor="let c of categories" [value]="c">{{c}}</option>
       </select>
     </div>
 
     <div class="form-group">
       <label for="icComment">Comment</label>
-      <input type="text" class="form-control" id="icComment" [(ngModel)]="expense.expenseComment" placeholder="" name="icComment">
+      <input type="text" class="form-control" id="icComment" placeholder="" name="icComment">
     </div>
 
     <div class="form-group">
       <label for="icPlan">Plan Value</label>
-      <input type="number" class="form-control" id="icPlan" [(ngModel)]="expense.expensePlan" placeholder="0.00" name="icPlan" #name="ngModel">
+      <input type="number" class="form-control" id="icPlan" placeholder="0.00" name="icPlan">
       <div [hidden]="icPlan.valid || icPlan.pristine" class="alert alert-danger">
         Plan amount must be a number.
       </div>
@@ -65,12 +66,12 @@
         Cancel
     </button>
     <button type="submit" class="btn btn-success" 
-            (click)="onSubmit();goBack()" 
+            (click)="onSubmit(icCategory.value, icComment.value, icPlan.value, icExpense.value, icMonth.value, icYear.value);goBack()" 
             [disabled]="!expenseForm.form.valid">
         Submit
     </button>
     <button type="button" class="btn btn-success" 
-            (click)="onSubmitAddNew(); expenseForm.reset()" 
+            (click)="onSubmit(icCategory.value, icComment.value, icPlan.value, icExpense.value, icMonth.value, icYear.value); setExpense(); expenseForm.reset();" 
             [disabled]="!expenseForm.form.valid">
         Submit & Add New
     </button>   
