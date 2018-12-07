@@ -1,4 +1,5 @@
-export interface IExpense {
+// ursprünglich ein Interface
+export class IExpense {
   id: number;
   expenseYear: number;
   expenseMonth: string;

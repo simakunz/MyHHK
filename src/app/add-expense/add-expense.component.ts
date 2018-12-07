@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, Form } from '@angular/forms';
+// hier werden aktuell keine Reactive Forms genutzt (wäre dann import { ReactiveFormsModule } from '@angular';)
+// sondern nur Template-Driven Forms
+import { FormControl, Validators, Form, FormGroup, FormBuilder } from '@angular/forms';
 import { MessageService } from '../messages/message.service';
 import { Categories } from '../categories';
 import { Months } from '../months';
@@ -32,33 +34,45 @@ import { ActivatedRoute } from '@angular/router';
 export class AddExpenseComponent implements OnInit {
 
   pageTitle: string = 'MyHHK Add Expense';
-  //expenseGroup: FormGroup;
+  expenseGroup: FormGroup;
   expenses: IExpense[];
+  expense: IExpense;
   years: number[];
   months: string[];
   categories: string[];
   submitted: boolean;
+ /*  
   icYear: FormControl;
   icMonth: FormControl;
   icComment: FormControl;
   icCategory: FormControl;
   icPlan: FormControl;
-  icExpense: FormControl;
+  icExpense: FormControl; 
+  */
   //location: Location;
   
   //private route: ActivatedRoute,
   //private heroService: HeroService,
   //private location: Location
   constructor(private hhkTableService: HHKTableService, private messageService: MessageService, private y: Years, private m: Months, 
-              private c: Categories, private route: ActivatedRoute, private location: Location) { }
+              private c: Categories, private route: ActivatedRoute, private location: Location, private formBuilder: FormBuilder) 
+      {
+          this.expense = new IExpense();
+          console.log(this.expense);
+          this.expenseGroup = formBuilder.group({
+            expenseYear : [{value: this.expense.expenseYear ? this.expense.expenseYear : 2018}, Validators.required],
+            expenseMonth : [{value: this.expense.expenseMonth ? this.expense.expenseMonth : "Juli"}, Validators.required],
+            expenseComment : [{value: this.expense.expenseComment ? this.expense.expenseComment : ""}],
+            expenseCategory : [{value: this.expense.expenseCategory}, Validators.required],
+            expensePlan : [{value:this.expense.expensePlan ? this.expense.expensePlan : 0}],
+            expenseActuals : [{value: this.expense.expenseActuals}, Validators.required]
+          });
+          
+
+               }
 
   ngOnInit() {
-    this.icYear = new FormControl('2018', Validators.required);
-    this.icMonth = new FormControl('August', Validators.required);
-    this.icComment = new FormControl('');
-    this.icCategory = new FormControl('', Validators.required);
-    this.icPlan = new FormControl('');
-    this.icExpense = new FormControl('0', Validators.required);
+    
 
     //TODO: kann sein dass wir hier auch filteredExpenses brauchen?
     this.hhkTableService.getExpenses().subscribe(expenses => {this.expenses = expenses;
@@ -91,16 +105,28 @@ export class AddExpenseComponent implements OnInit {
   get icExpense() { return this.expenseGroup.get('icExpense'); }
   */
 
-  onSubmit(expenseCategory: String, expenseComment: String, expensePlan: number, expenseActuals: number, expenseMonth: String, expenseYear: number): void {
+  onSubmit(isGoBack? : boolean): void {
     this.log(`**************`);
     this.log(`* new submit *`);
     this.log(`**************`);
 
-    this.log(`submitting ${this.hhkTableService.stringifyExpense({expenseCategory,expenseComment,expensePlan,expenseActuals,expenseMonth, expenseYear } as IExpense)}`);
-    
-    
-    this.hhkTableService.addExpense({expenseCategory,expenseComment,expensePlan,expenseActuals,expenseMonth, expenseYear } as IExpense)
-        .subscribe(expense => this.expenses.push(expense));
+    //this.log(`expenseYear: ${expenseYear} && this.icYear = ${this.icYear.value}`);
+    //this.log(`submitting ${this.hhkTableService.stringifyExpense(this.expenseGroup.value as IExpense)}`);
+    //console.log(this.expenseGroup);
+
+    this.hhkTableService.addExpense(this.expenseGroup.value as IExpense)
+        .subscribe(expense => {
+          this.expenses.push(expense);
+          console.log(expense);
+          if (isGoBack) 
+             this.goBack();
+          else {
+            //TODO: Erfolgsmeldung anzeigen
+            this.log(`successfully added expense ${this.hhkTableService.stringifyExpense(this.expense)}`);
+            this.expenseGroup.reset();
+          }
+        });
+
 
     /*working
     if (this.expense) {

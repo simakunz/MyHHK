@@ -9,22 +9,23 @@
 <div class="container">
   <h1>{{pageTitle}}</h1>
 
-  <form #expenseForm="ngForm" *ngIf='expenses && expenses.length'>
+  <form #expenseForm="ngForm" *ngIf='expenses && expenses.length' (ngSubmit)="onSubmit()" [formGroup]="expenseGroup">
     <div class="form-group">
       <label for="icYear">Year</label>
-      <select class="form-control" id="icYear" required placeholder="1900" name="icYear">
-        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+      <select class="form-control" id="icYear" required placeholder="1900" formControlName="expenseYear">
+        <div class="alert alert-danger">
           Year of the expense is required.
         </div>
         <option *ngFor="let y of years" [value]="y">{{y}}</option>
       </select>
     </div>
+  
 
     <div class="form-group">
       <label for="icMonth">Month</label>
       <!-- [(ngModel)]="expense.expenseMonth"  -->
-      <select class="form-control" id="icMonth" required placeholder="Januar" name="icMonth">
-        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+      <select class="form-control" id="icMonth" required placeholder="Januar" formControlName="expenseMonth">
+        <div class="alert alert-danger">
           Month of the expense is required.
         </div>
         <option *ngFor="let m of months" [value]="m">{{m}}</option>
@@ -33,45 +34,47 @@
 
     <div class="form-group">
       <label for="icExpense">Expense Value</label>
-      <input type="number" class="form-control" id="icExpense" required placeholder="0.00"
-        name="icExpense">
-      <div [hidden]="icExpense.valid || icExpense.pristine" class="alert alert-danger">
+      <input type="number" class="form-control" id="icExpense" required placeholder="0.00" formControlName="expenseActuals">
+      <div class="alert alert-danger">
         Expense amount is required and must be a number.
       </div>
     </div>
 
     <div class="form-group">
       <label for="icCategory">Category</label>
-      <select class="form-control" id="icCategory" required placeholder="Zum Ausgeben" name="icCategory">
+      <select class="form-control" id="icCategory" required placeholder="Zum Ausgeben" formControlName="expenseCategory">
         <option *ngFor="let c of categories" [value]="c">{{c}}</option>
       </select>
     </div>
 
     <div class="form-group">
       <label for="icComment">Comment</label>
-      <input type="text" class="form-control" id="icComment" placeholder="" name="icComment">
+      <input type="text" class="form-control" id="icComment" placeholder="" formControlName="expenseComment">
     </div>
 
     <div class="form-group">
       <label for="icPlan">Plan Value</label>
-      <input type="number" class="form-control" id="icPlan" placeholder="0.00" name="icPlan">
-      <div [hidden]="icPlan.valid || icPlan.pristine" class="alert alert-danger">
+      <input type="number" class="form-control" id="icPlan" placeholder="0.00" formControlName="expensePlan">
+      <div class="alert alert-danger">
         Plan amount must be a number.
       </div>
     </div>
 
     <!-- buttons at the bottom to submit, cancel and add another one -->
+    <!-- Button: Cancel --> 
     <button type="cancel" class="btn btn-cancel"
             (click)="goBack()">
         Cancel
     </button>
+    <!-- Button: Submit 
+        the click method is already included in the form group on top -->
     <button type="submit" class="btn btn-success" 
-            (click)="onSubmit(icCategory.value, icComment.value, icPlan.value, icExpense.value, icMonth.value, icYear.value);goBack()" 
+            (click)="goBack()"
             [disabled]="!expenseForm.form.valid">
         Submit
     </button>
-    <button type="button" class="btn btn-success" 
-            (click)="onSubmit(icCategory.value, icComment.value, icPlan.value, icExpense.value, icMonth.value, icYear.value); setExpense(); expenseForm.reset();" 
+    <!-- Button: Submit & Add New -->
+    <button type="submit" class="btn btn-success" 
             [disabled]="!expenseForm.form.valid">
         Submit & Add New
     </button>   
