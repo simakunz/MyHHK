@@ -28,32 +28,36 @@
                     <button class='btn btn-primary' (click)='add(inputCategory.value, inputIsAmount.value, inputComment.value, inputMonth.value, inputPlanAmount.value, inputYear.value)'>add</button>
                     -->
                     <button class='btn btn-primary' [routerLink]="['/add-expense']">Add Expense</button>
-                    <!-- <button class='btn btn-primary' (click)='delete(TODO)'>Delete</button> -->
+                    <button class='btn btn-primary' (click)='delete(TODO)'>Delete</button>
                     <button class='btn btn-primary' (click)='update(TODO)'>Update</button>
                     <button class='btn btn-primary' (click)='clearFilters()'>Clear Filters</button>
                 </td>
             </table>
         </div>
-        
+        <!--
+        <div class='row'>
+            <div class='col-md-6'>
+                <h3>Filtered by: </h3>{{listFilter}} </h3>
+            </div>
+        </div>
+        -->
         <div>
             <div class='table-responsive'>
                 <table class='table' *ngIf='expenses && expenses.length'>
-                    <thead align="right">
-                        <tr >
+                    <thead>
+                        <tr>
                             <!-- headline itself -->
-                            <td> </td> <!-- for the "delete" icon -->
-                            <td width = 50>Jahr</td>
-                            <td>Monat</td>
-                            <td>Kategorie</td>
-                            <td width = 75>Plan (in {{currency}})</td>
-                            <td width = 50>Ist (in {{currency}})</td>
-                            <td>Bemerkung</td>
+                            <th>Jahr</th>
+                            <th>Monat</th>
+                            <th>Kategorie</th>
+                            <th>Plan (in {{currency}})</th>
+                            <th>Ist (in {{currency}})</th>
+                            <th>Bemerkung</th>
                         </tr>
                         <tr>
                             <!-- filters for headline -->
-                           <td> </td>
-                            <td> <!-- Year Filter -->
-                              <div> <!-- entfernt: class='col-md-2' -->
+                            <th> <!-- Year Filter -->
+                              <div class='col-md-2'>
                                   <select [(ngModel)]="selectedYear" (input)="onYearInput($event)">
                                       <option *ngFor="let y of years"
                                               [value]="y"
@@ -62,9 +66,9 @@
                                       </option>
                                    </select>
                               </div>
-                            </td>
-                            <td> <!-- Month Filter -->
-                                <div>
+                            </th>
+                            <th> <!-- Month Filter -->
+                                <div class='col-md-2'>
                                     <select [(ngModel)]="selectedMonth" (input)="onMonthInput($event)">
                                         <option *ngFor="let m of months"
                                                 [value]="m"
@@ -73,9 +77,9 @@
                                         </option>
                                      </select>
                                 </div>
-                            </td>
-                            <td> <!-- Category Filter -->
-                                <div>
+                            </th>
+                            <th> <!-- Category Filter -->
+                                <div class='col-md-2'>
                                     <select [(ngModel)]="selectedCategory" (input)="onCategoryInput($event)">
                                         <option *ngFor="let c of categories"
                                                 [value]="c"
@@ -84,36 +88,36 @@
                                         </option>
                                         </select>
                                 </div>
-                            </td>
-                            <td>
+                            </th>
+                            <th>
                                 <!-- Plan -->
-                                <div>
+                                <div class='col-md-2'>
                                     <input type='text' [(ngModel)]='plansFilter' />
                                 </div>
-                            </td>
-                            <td>
+                            </th>
+                            <th>
                                 <!-- Actuals -->
-                                <div>
+                                <div class='col-md-2'>
                                     <input type='text' [(ngModel)]='actualsFilter' />
                                 </div>
-                            </td>
-                            <td>
+                            </th>
+                            <th>
                                 <!-- Comments -->
-                                <div>
+                                <div class='col-md-2'>
                                     <input type='text' [(ngModel)]='commentFilter' />
                                 </div>
-                            </td>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor='let expense of filteredExpenses' align="right">
+                        <tr *ngFor='let expense of filteredExpenses'>
                             <button class="delete" title="delete expense"
                                 (click)="delete(expense)">  x  </button>
-                            <td width=50>{{ expense.expenseYear}}</td>
-                            <td width=75>{{ expense.expenseMonth}}</td>
+                            <td>{{ expense.expenseYear}}</td>
+                            <td>{{ expense.expenseMonth}}</td>
                             <td>{{ expense.expenseCategory}}</td>
-                            <td width=75>{{ expense.expensePlan | number:'1.2-2' | convertFX: fxRate }}</td>
-                            <td width=75>{{ expense.expenseActuals | number:'1.2-2' | convertFX: fxRate }}</td>
+                            <td>{{ expense.expensePlan | number:'1.2-2' | convertFX: fxRate }}</td>
+                            <td>{{ expense.expenseActuals | number:'1.2-2' | convertFX: fxRate }}</td>
                             <td>{{ expense.expenseComment}}</td>
                         </tr>
                     </tbody>
