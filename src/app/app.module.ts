@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ConvertFX } from './shared/convertFX.pipe';
@@ -16,6 +17,7 @@ import { MessagesComponent } from './messages/message.component';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryHHKService } from './hhk-table/in-memory-hhk.service';
 import { AddExpenseComponent } from './add-expense/add-expense.component';
+
 
 
 @NgModule({
@@ -35,6 +37,7 @@ import { AddExpenseComponent } from './add-expense/add-expense.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatSnackBarModule,
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
