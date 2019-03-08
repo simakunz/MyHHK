@@ -33,7 +33,12 @@ export class HHKTableService {
     - URL to web api
     - must be the same as in in-memory-hhk.service the return value
   ******************************** */
-  private hhkUrl = 'api/hhk_entries';  
+  private hhkUrl = 'api/hhk_entries'; 
+  
+  putUrl = 'https://j93mo3vytj.execute-api.eu-central-1.amazonaws.com/HHK_GET_PUT/';// + {primkey}
+  getUrl = 'https://j93mo3vytj.execute-api.eu-central-1.amazonaws.com/HHK_GET_PUT/'; // + {primkey}
+  getResult: any = {};
+  putResult: any = {}; 
 
   constructor(
       private http: HttpClient, 
@@ -131,42 +136,4 @@ deleteExpense (expense: IExpense | number): Observable<IExpense> {
     return s;
   }
 
-
-  /*******************************************
-   * old way of just returning the array... 
-   * now replaced with the fake web-api and 
-   * later on with a real connection to a server / DB
-   * *****************************************
-  getExpenses(): IExpense[] {
-    return [
-      {
-        expenseId: 1,
-        expenseYear: 2018,
-        expenseMonth: 'Februar',
-        expenseCategory: 'Zum regulären Ausgeben',
-        expenseComment: 'Testeintrag einfach so',
-        expenseActuals: 118.28,
-        expensePlan: 200
-      },
-      {
-        expenseId: 2,
-        expenseYear: 2017,
-        expenseMonth: 'Februar',
-        expenseCategory: 'Zum regulären Ausgeben',
-        expenseActuals: 10.50,
-        expensePlan: 200,
-        expenseComment: 'Döner mit Anke'
-      },
-      {
-        expenseId: 3,
-        expenseYear: 2018,
-        expenseMonth: 'März',
-        expenseCategory: 'Zum regulären Ausgeben',
-        expenseActuals: 103.5,
-        expensePlan: 200,
-        expenseComment: 'Aigle Parcours Vario 2 Stiefel Ebay Kleinanzeigen'
-      }
-    ];
-  }
-  */
 }

@@ -191,7 +191,6 @@ export class HHKTableComponent implements OnInit {
 
   delete(expense: IExpense): void {
     this.expenses = this.expenses.filter(e => e !== expense);
-    this.filteredExpenses = this.filteredExpenses.filter(e => e !== expense);
     this._hhkTableService.deleteExpense(expense).subscribe();
   }
 

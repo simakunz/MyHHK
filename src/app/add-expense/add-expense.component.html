@@ -13,11 +13,11 @@
         <div class="form-group">
             <label for="icYear">Year</label>
             <select class="form-control" id="icYear" required placeholder="1900" formControlName="expenseYear">
-        <div class="alert alert-danger">
-          Year of the expense is required.
-        </div>
-        <option *ngFor="let y of years" [value]="y">{{y}}</option>
-      </select>
+                <div class="alert alert-danger">
+                Year of the expense is required.
+                </div>
+                <option *ngFor="let y of years" [value]="y">{{y}}</option>
+            </select>
         </div>
 
 
@@ -25,11 +25,11 @@
             <label for="icMonth">Month</label>
             <!-- [(ngModel)]="expense.expenseMonth"  -->
             <select class="form-control" id="icMonth" required placeholder="Januar" formControlName="expenseMonth">
-        <div class="alert alert-danger">
-          Month of the expense is required.
-        </div>
-        <option *ngFor="let m of months" [value]="m">{{m}}</option>
-      </select>
+                <div class="alert alert-danger">
+                Month of the expense is required.
+                </div>
+                <option *ngFor="let m of months" [value]="m">{{m}}</option>
+            </select>
         </div>
 
         <div class="form-group">
@@ -43,8 +43,8 @@
         <div class="form-group">
             <label for="icCategory">Category</label>
             <select class="form-control" id="icCategory" required placeholder="Zum Ausgeben" formControlName="expenseCategory">
-        <option *ngFor="let c of categories" [value]="c">{{c}}</option>
-      </select>
+                <option *ngFor="let c of categories" [value]="c">{{c}}</option>
+            </select>
         </div>
 
         <div class="form-group">
@@ -63,21 +63,22 @@
         <!-- buttons at the bottom to submit, cancel and add another one -->
         <!-- Button: Cancel -->
         <button type="cancel" class="btn btn-cancel" (click)="goBack()">
-        Cancel
-    </button>
+            Cancel
+        </button>
         <!-- Button: Submit 
         the click method is already included in the form group on top -->
         <button type="submit" class="btn btn-success" [disabled]="!expenseForm.form.valid">
-        Submit
-    </button>
+            Submit
+        </button>
         <!-- Button: Submit & Add New -->
         <button type="submit" class="btn btn-success" [disabled]="!expenseForm.form.valid">
-        Submit & Add New
-    </button>
+            Submit & Add New
+        </button>
     </form>
 </div>
 
 <!-- TODO: to be commented out in productive -->
+
 <div [hidden]="!submitted" *ngIf='expense'>
     <h2>You submitted the following:</h2>
     <div class="row">
@@ -106,4 +107,4 @@
     </div>
     <br>
     <button class="btn btn-primary" (click)="submitted=false">Edit</button>
-    </div
+</div>
