@@ -1,7 +1,7 @@
 import { IExpense } from '../expense';
 import { Injectable } from '@angular/core';
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -71,8 +71,11 @@ export class HHKTableService {
 
   /** GET expenese by id. Will 404 if id not found */
   getExpense(id: number): Observable<IExpense> {
-    const url = `${this.hhkUrl}/${id}`;
-    return this.http.get<IExpense>(url).pipe(
+    //const url = `${this.hhkUrl}/${id}`;
+    const url = `${this.getUrl}/${id}`;
+    let params = new HttpParams().set("PrimKey", "1");//TODO: maybe only "primkey"
+    
+    return this.http.get<IExpense>(url, {params}).pipe(
       tap(_ => this.log(`fetched expense id=${id}`)),
       catchError(this.handleError<IExpense>(`getExpense id=${id}`))
     );
